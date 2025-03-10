@@ -1,7 +1,7 @@
 import 'package:quiz_app_class_version/model/question_model.dart';
 
 class DummyDb {
-  List<QuestionModel> questions = [
+  static final List<QuestionModel> questions = [
     QuestionModel(
       question: "Which programming language is used to develop Flutter apps?",
       options: ["Java", "Kotlin", "Swift", "Dart"],

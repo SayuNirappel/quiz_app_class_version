@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app_class_version/dummy_db.dart';
+import 'package:quiz_app_class_version/view/result_screen/result_screen.dart';
 // import 'package:quiz_app_sample/dummy_counter.dart';
 // import 'package:quiz_app_sample/dummy_db.dart';
 // import 'package:quiz_app_sample/model/question_model/question_model.dart';
@@ -17,21 +18,18 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  DummyDb db1 = DummyDb();
-  // Flagcounter fc = Flagcounter();
-
   int limit = 10;
+  int questionIndex = 0;
+  int? clickedIndex;
+
   @override
   Widget build(BuildContext context) {
-    // int flag = fc.fCounter[0];
-    // int counter = fc.fCounter[1];
-    // int answercount = fc.fCounter[2];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         actions: [
           Text(
-            "0/ 10",
+            "${questionIndex + 1}/${DummyDb.questions.length}",
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(
@@ -52,7 +50,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
-                    db1.questions[0].question,
+                    DummyDb.questions[questionIndex].question,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -65,25 +63,27 @@ class _QuizScreenState extends State<QuizScreen> {
               spacing: 20,
               children: List.generate(
                   4,
-                  (index) => Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 3, color: Colors.white),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: InkWell(
-                            onTap: () {
-                              // Navigator.pushReplacement(
-                              //     (context),
-                              //     MaterialPageRoute(
-                              //         builder: (context) => ResultScreen()));
-                            },
+                  (index) => InkWell(
+                        onTap: () {
+                          clickedIndex = index;
+                          setState(() {});
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: _buildOptionColor(index),
+                              border: Border.all(width: 3, color: Colors.white),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  db1.questions[0].options[index],
-                                  style: TextStyle(color: Colors.white),
+                                Expanded(
+                                  child: Text(
+                                    DummyDb.questions[questionIndex]
+                                        .options[index],
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                                 Icon(
                                   Icons.circle_outlined,
@@ -95,9 +95,47 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                       )),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  if (questionIndex < DummyDb.questions.length - 1) {
+                    questionIndex++;
+                  } else {
+                    Navigator.pushReplacement(
+                        (context),
+                        MaterialPageRoute(
+                            builder: (context) => ResultScreen()));
+                  }
+                  clickedIndex = null;
+                });
+              },
+              child: Container(
+                  height: 40,
+                  width: double.infinity,
+                  // margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  child: Center(child: Text("Next"))),
+            )
           ],
         ),
       ),
     );
+  }
+
+  Color? _buildOptionColor(int index) {
+    if (clickedIndex == index) {
+      if (index == DummyDb.questions[questionIndex].answerIndex) {
+        return Colors.greenAccent;
+      } else {
+        return Colors.redAccent;
+      }
+    }
+    return null;
   }
 }

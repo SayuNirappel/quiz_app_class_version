@@ -65,8 +65,10 @@ class _QuizScreenState extends State<QuizScreen> {
                   4,
                   (index) => InkWell(
                         onTap: () {
-                          clickedIndex = index;
-                          setState(() {});
+                          if (clickedIndex == null) {
+                            clickedIndex = index;
+                            setState(() {});
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -129,6 +131,11 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Color? _buildOptionColor(int index) {
+    if (clickedIndex != null) {
+      if (DummyDb.questions[questionIndex].answerIndex == index) {
+        return Colors.lightGreenAccent;
+      }
+    }
     if (clickedIndex == index) {
       if (index == DummyDb.questions[questionIndex].answerIndex) {
         return Colors.greenAccent;

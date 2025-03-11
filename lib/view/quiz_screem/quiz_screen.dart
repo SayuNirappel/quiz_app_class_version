@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app_class_version/dummy_db.dart';
 import 'package:quiz_app_class_version/view/result_screen/result_screen.dart';
-// import 'package:quiz_app_sample/dummy_counter.dart';
-// import 'package:quiz_app_sample/dummy_db.dart';
-// import 'package:quiz_app_sample/model/question_model/question_model.dart';
-// import 'package:quiz_app_sample/view/result_screen.dart/result_screen.dart';
 
 void main() {}
 
@@ -18,6 +14,7 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  int answerCount = 0;
   int limit = 10;
   int questionIndex = 0;
   int? clickedIndex;
@@ -69,6 +66,10 @@ class _QuizScreenState extends State<QuizScreen> {
                             clickedIndex = index;
                             setState(() {});
                           }
+                          if (clickedIndex ==
+                              DummyDb.questions[questionIndex].answerIndex) {
+                            answerCount++;
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -84,7 +85,16 @@ class _QuizScreenState extends State<QuizScreen> {
                                   child: Text(
                                     DummyDb.questions[questionIndex]
                                         .options[index],
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: (index == clickedIndex ||
+                                                index ==
+                                                        DummyDb
+                                                            .questions[
+                                                                questionIndex]
+                                                            .answerIndex &&
+                                                    clickedIndex != null)
+                                            ? Colors.black
+                                            : Colors.white),
                                   ),
                                 ),
                                 Icon(
@@ -100,30 +110,32 @@ class _QuizScreenState extends State<QuizScreen> {
             SizedBox(
               height: 20,
             ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  if (questionIndex < DummyDb.questions.length - 1) {
-                    questionIndex++;
-                  } else {
-                    Navigator.pushReplacement(
-                        (context),
-                        MaterialPageRoute(
-                            builder: (context) => ResultScreen()));
-                  }
-                  clickedIndex = null;
-                });
-              },
-              child: Container(
-                  height: 40,
-                  width: double.infinity,
-                  // margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Center(child: Text("Next"))),
-            )
+            if (clickedIndex != null)
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    if (questionIndex < DummyDb.questions.length - 1) {
+                      questionIndex++;
+                    } else {
+                      Navigator.pushReplacement(
+                          (context),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ResultScreen(answerCount: answerCount)));
+                    }
+                    clickedIndex = null;
+                  });
+                },
+                child: Container(
+                    height: 40,
+                    width: double.infinity,
+                    // margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Center(child: Text("Next"))),
+              )
           ],
         ),
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app_class_version/view/quiz_screem/quiz_screen.dart';
+import 'package:quiz_app_class_version/view/result_screen/result_screen.dart';
 import 'package:quiz_app_class_version/view/splash_screen/splash_screen.dart';
 
 void main() {
@@ -13,7 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home:
-            //ResultScreen()
+            // ResultScreen(
+            //   answerCount: 7,
+            // )
             SplashScreen()
         //QuizScreen(),
         );

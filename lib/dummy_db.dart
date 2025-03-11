@@ -72,32 +72,32 @@ class DummyDb {
       ],
       answerIndex: 2,
     ),
-    QuestionModel(
-      question:
-          "What is the default build mode in Flutter when running 'flutter run'?",
-      options: ["Debug", "Release", "Profile", "Test"],
-      answerIndex: 0,
-    ),
-    QuestionModel(
-      question:
-          "Which widget in Flutter allows you to apply padding to its child?",
-      options: ["Padding", "SizedBox", "Container", "Align"],
-      answerIndex: 0,
-    ),
-    QuestionModel(
-      question: "Which class is used for asynchronous operations in Dart?",
-      options: ["Future", "Stream", "AsyncTask", "Completer"],
-      answerIndex: 0,
-    ),
-    QuestionModel(
-      question: "Which widget is used to create a button in Flutter?",
-      options: ["Text", "Container", "ElevatedButton", "Column"],
-      answerIndex: 2,
-    ),
-    QuestionModel(
-      question: "How do you define a constant variable in Dart?",
-      options: ["final", "const", "var", "static"],
-      answerIndex: 1,
-    ),
+    // QuestionModel(
+    //   question:
+    //       "What is the default build mode in Flutter when running 'flutter run'?",
+    //   options: ["Debug", "Release", "Profile", "Test"],
+    //   answerIndex: 0,
+    // ),
+    // QuestionModel(
+    //   question:
+    //       "Which widget in Flutter allows you to apply padding to its child?",
+    //   options: ["Padding", "SizedBox", "Container", "Align"],
+    //   answerIndex: 0,
+    // ),
+    // QuestionModel(
+    //   question: "Which class is used for asynchronous operations in Dart?",
+    //   options: ["Future", "Stream", "AsyncTask", "Completer"],
+    //   answerIndex: 0,
+    // ),
+    // QuestionModel(
+    //   question: "Which widget is used to create a button in Flutter?",
+    //   options: ["Text", "Container", "ElevatedButton", "Column"],
+    //   answerIndex: 2,
+    // ),
+    // QuestionModel(
+    //   question: "How do you define a constant variable in Dart?",
+    //   options: ["final", "const", "var", "static"],
+    //   answerIndex: 1,
+    // ),
   ];
 }
